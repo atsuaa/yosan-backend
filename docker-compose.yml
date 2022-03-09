@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: ./infra/app
+    depends_on:
+      - db
+    ports:
+    - "8000:80"
+    volumes:
+      - ./backend:/var/www/html/backend
+      - yosan-vscode-extensions:/root/.vscode-server/extensions
+  db:
+    build:
+      context: ./infra/db
+    environment:
+      MYSQL_DATABASE: yosan_db
+      MYSQL_USER: Amori
+      MYSQL_PASSWORD: Amori0402
+      MYSQL_ROOT_PASSWORD: Amori0402
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./infra/db/mysql/data:/var/lib/mysql
+
+volumes:
+  yosan-vscode-extensions:
