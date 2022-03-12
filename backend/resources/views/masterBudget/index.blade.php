@@ -1,0 +1,1 @@
+<a href="/budget/master/create">新規登録</a>

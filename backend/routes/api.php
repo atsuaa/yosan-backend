@@ -29,3 +29,7 @@ Route::get('/tags', [TagController::class, 'index']);
 Route::get('budgets', [BudgetController::class, 'index']);
 Route::get('budgets/year', [BudgetController::class, 'index']);
 Route::get('budgets/month', [BudgetController::class, 'index']);
+
+Route::get('budgets/{id}', [BudgetController::class, 'show']);
+
+Route::post('budgets/save', [BudgetController::class, 'save']);
