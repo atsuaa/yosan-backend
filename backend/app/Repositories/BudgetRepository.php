@@ -11,4 +11,9 @@ class BudgetRepository extends AppRepository implements BudgetRepositoryInterfac
         $budgets = Budget::factory()->count(100)->make();
         return $budgets->where('month', '=', $month);
     }
+
+    public function save($budget)
+    {
+        return $budget;
+    }
 }

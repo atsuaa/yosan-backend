@@ -12,4 +12,11 @@ interface BudgetRepositoryInterface
      * @return \ArrayAccess
      */
     public function findInMonth($month);
+
+    /**
+     * 予算登録
+     *
+     * @return \ArrayAccess|false
+     */
+    public function save($budget);
 }

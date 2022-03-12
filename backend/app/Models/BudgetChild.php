@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @method static \Illuminate\Database\Query\Builder where()
- * @method static \Illuminate\Database\Eloquent\Model|object|static|null find()
- */
-class Budget extends Model
+class BudgetChild extends Model
 {
     use HasFactory;
 
@@ -19,12 +15,10 @@ class Budget extends Model
      * @var array
      */
     protected $attributes = [
-        'group_id' => 0,
-        'master_badget_id' => 0,
-        'tag_id' => 0,
-        'price' => 0,
-        'from_date' => null,
+        'badget_id' => 0,
+        'from_date' => 0,
         'to_date' => null,
+        'price' => null,
         'description' => null,
     ];
 
@@ -34,12 +28,18 @@ class Budget extends Model
      * @var array
      */
     protected $fillable = [
-        'group_id',
-        'master_badget_id',
-        'tag_id',
-        'price',
+        'badget_id',
         'from_date',
         'to_date',
+        'price',
         'description',
     ];
+
+    /**
+     * 親予算
+     */
+    public function budget()
+    {
+        return $this->belongsTo(Budget::class);
+    }
 }

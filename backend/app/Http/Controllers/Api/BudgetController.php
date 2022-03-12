@@ -30,43 +30,6 @@ class BudgetController extends Controller
         return $budgets;
     }
 
-    public function hoge(&$array)
-    {
-        $array = &$array['name'];
-        return $array;
-    }
-
-    public static function set(&$array, $key, $value)
-    {
-        if (is_null($key)) {
-            return $array = $value;
-        }
-
-        $keys = explode('.', $key);
-
-        foreach ($keys as $i => $key) {
-            // if (count($keys) === 1) {
-            //     break;
-            // }
-
-            // unset($keys[$i]);
-
-            // If the key doesn't exist at this depth, we will just create an empty array
-            // to hold the next value, allowing us to create the arrays to hold final
-            // values at the correct depth. Then we'll keep digging into the array.
-            if (! isset($array[$key]) || ! is_array($array[$key])) {
-                $array[$key] = [];
-            }
-            // $array[$key] = [];
-
-            $array = &$array[$key];
-        }
-
-        $array[array_shift($keys)] = $value;
-
-        return $array;
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -91,12 +54,16 @@ class BudgetController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Budget  $budget
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Budget $budget)
+    public function show($id)
     {
-        //
+        try {
+            return $this->budgetService->findDetail($id);
+        } catch (\Exception $e) {
+            return 'データが存在しません。';
+        }
     }
 
     /**
