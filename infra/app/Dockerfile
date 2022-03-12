@@ -40,4 +40,6 @@ RUN apt-get update -qq \
 RUN mv /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled
 RUN /bin/sh -c a2enmod rewrite
 
+RUN npm install -g webpack webpack-cli
+
 WORKDIR /var/www/html/backend
