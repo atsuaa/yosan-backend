@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBudgetsTable extends Migration
+class CreateBudgetChildrenTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateBudgetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('budgets', function (Blueprint $table) {
+        Schema::create('budget_children', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('group_id');
-            $table->integer('master_badget_id');
-            $table->integer('tag_id')->nullable();
-            $table->integer('price');
+            $table->integer('budget_id');
             $table->date('from_date');
             $table->date('to_date');
-            $table->string('description', 100)->nullable();
+            $table->integer('price');
         });
     }
 
@@ -33,6 +30,6 @@ class CreateBudgetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('budgets');
+        Schema::dropIfExists('budget_children');
     }
 }
