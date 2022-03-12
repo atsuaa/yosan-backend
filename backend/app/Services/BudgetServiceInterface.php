@@ -40,6 +40,14 @@ interface BudgetServiceInterface
     public function register($budget);
 
     /**
+     * 予算項目登録
+     *
+     * @param \ArrayAccess $budgetMaster
+     * @return \ArrayAccess|false
+     */
+    public function registerMaster($budgetMaster);
+
+    /**
      * 予算編集
      *
      * @param \ArrayAccess $budget

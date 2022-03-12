@@ -7,16 +7,17 @@ use App\Http\Requests\StoreBudgetRequest;
 use App\Http\Requests\UpdateBudgetRequest;
 use App\Models\Budget;
 use App\Services\BudgetServiceInterface;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
 class BudgetController extends Controller
 {
-    /** @var BudgetServiceInterface $budgetService */
-    protected $budgetService;
+    /** @var BudgetServiceInterface $BudgetService */
+    protected $BudgetService;
 
-    public function __construct(BudgetServiceInterface $budgetService)
+    public function __construct(BudgetServiceInterface $BudgetService)
     {
-        $this->budgetService = $budgetService;
+        $this->BudgetService = $BudgetService;
     }
 
     /**
@@ -26,18 +27,8 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $budgets = $this->budgetService->findInMonth(3);
+        $budgets = $this->BudgetService->findInMonth(3);
         return $budgets;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -46,10 +37,23 @@ class BudgetController extends Controller
      * @param  \App\Http\Requests\StoreBudgetRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBudgetRequest $request)
+    public function save(Request $request)
     {
-        //
+        $budget = $this->BudgetService->register($request->all());
+        dump($budget);
+        exit;
     }
+
+    // /**
+    //  * Store a newly created resource in storage.
+    //  *
+    //  * @param  \App\Http\Requests\StoreBudgetRequest  $request
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function store(StoreBudgetRequest $request)
+    // {
+    //     //
+    // }
 
     /**
      * Display the specified resource.
@@ -60,43 +64,9 @@ class BudgetController extends Controller
     public function show($id)
     {
         try {
-            return $this->budgetService->findDetail($id);
+            return $this->BudgetService->findDetail($id);
         } catch (\Exception $e) {
             return 'データが存在しません。';
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Budget  $budget
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Budget $budget)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateBudgetRequest  $request
-     * @param  \App\Models\Budget  $budget
-     * @return \Illuminate\Http\Response
-     */
-    // public function update(UpdateBudgetRequest $request, Budget $budget)
-    // {
-    //     //
-    // }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Budget  $budget
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Budget $budget)
-    {
-        //
     }
 }

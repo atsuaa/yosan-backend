@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Budget;
+use App\Models\MasterBudget;
 use App\Repositories\BudgetRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
@@ -59,7 +60,12 @@ class BudgetService implements BudgetServiceInterface
      */
     public function register($budget)
     {
-        return $this->budgetRepository->save($budget);
+        return Budget::create($budget);
+    }
+
+    public function registerMaster($budgetMaster)
+    {
+        return MasterBudget::create($budgetMaster);
     }
 
     public function findDetail($budget)

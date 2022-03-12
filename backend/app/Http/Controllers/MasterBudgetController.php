@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreMasterBudgetRequest;
-use App\Http\Requests\UpdateMasterBudgetRequest;
 use App\Models\MasterBudget;
+use App\Services\BudgetServiceInterface;
+use Illuminate\Http\Request;
 
 class MasterBudgetController extends Controller
 {
+    /** @var BudgetServiceInterface $BudgetService */
+    protected $BudgetService;
+
+    public function __construct(BudgetServiceInterface $BudgetService)
+    {
+        $this->BudgetService = $BudgetService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,7 @@ class MasterBudgetController extends Controller
      */
     public function index()
     {
-        //
+        return view('masterBudget.index');
     }
 
     /**
@@ -25,18 +33,19 @@ class MasterBudgetController extends Controller
      */
     public function create()
     {
-        //
+        return view('masterBudget.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreMasterBudgetRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMasterBudgetRequest $request)
+    public function store(Request $request)
     {
-        //
+        $this->BudgetService->registerMaster($request->all());
+
+        return redirect('/budget/master');
     }
 
     /**
@@ -64,11 +73,10 @@ class MasterBudgetController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateMasterBudgetRequest  $request
      * @param  \App\Models\MasterBudget  $masterBudget
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMasterBudgetRequest $request, MasterBudget $masterBudget)
+    public function update(Request $request, MasterBudget $masterBudget)
     {
         //
     }
